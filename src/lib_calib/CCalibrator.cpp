@@ -571,7 +571,7 @@ Params Calibrator::calibrate(int mode, bool save_jacob){
         final_params= batch_optimize(sample, initial_params,2);
         cout << final_params.to_table()<<endl;
 
-        printf(">>>Fine results (It may take few minites.....)\n");
+        printf(">>>Fine results (It may take few minutes.....)\n");
         final_params= batch_optimize(sample, final_params,mode,save_jacob);
     }
     else{
