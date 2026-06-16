@@ -55,7 +55,9 @@ Eigen::Matrix3d LieAlgebra::to_SO3(const Eigen::Vector3d & _w)
 
     return mat;
 }
-
+/// @brief 从标定板平面到相机归一化成像平面的单应映射，乘以K为单应矩阵
+/// @param se3 外参rt
+/// @return 
 Eigen::Matrix3d LieAlgebra::to_E(se3 se3){
     
     Eigen::Matrix3d Rot, E;

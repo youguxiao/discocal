@@ -29,6 +29,7 @@ public:
 
     // template <typename T>
     // vector<T> split(string str, char Delimiter);
+    /// Mono calibration
     void mono_calibration(YAML::Node node);
 };
 

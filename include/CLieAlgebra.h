@@ -35,13 +35,13 @@ class LieAlgebra{
     public:
         // transformation between matrix form and screw vector fom
         static Eigen::Matrix3d randomE(Eigen::Vector3d standard, double delta);
-        static Eigen::Vector3d to_so3(const Eigen::Matrix3d &R);
-        static Eigen::Vector3d normalize_so3(const Eigen::Vector3d &_w);
-        static Eigen::Matrix3d to_SO3(const Eigen::Vector3d &_w);
+        static Eigen::Vector3d to_so3(const Eigen::Matrix3d &R);// R to so3 rotvec
+        static Eigen::Vector3d normalize_so3(const Eigen::Vector3d &_w);//归一化旋转向量 大于180度转为负
+        static Eigen::Matrix3d to_SO3(const Eigen::Vector3d &_w);//so3 rotvec to R
         static Eigen::Matrix3d to_E(se3 se3);
-        static Eigen::Matrix4d to_SE3(se3 se3);
-        static se3 to_se3(const Eigen::Matrix4d &T);
-        static se3 to_se3(const Eigen::Matrix3d &E);
+        static Eigen::Matrix4d to_SE3(se3 se3);//se3 to SE3 旋转向量 平移向量到齐次矩阵
+        static se3 to_se3(const Eigen::Matrix4d &T);//齐次矩阵转为se3
+        static se3 to_se3(const Eigen::Matrix3d &E);//归一化平面映射矩阵到se3
         static pair<double, double> dist(se3 a,se3 b);
         static se3 solveAXXB(const vector<pair<se3, se3>> &ABs);
 

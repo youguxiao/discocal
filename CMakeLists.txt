@@ -4,7 +4,11 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 project(discocal)
+# 强制指定为 Debug 模式
+set(CMAKE_BUILD_TYPE Debug CACHE STRING "Choose the type of build" FORCE)
 
+# 打印一下，确保配置生效
+message(STATUS "🔥🔥 调试确认：当前构建类型确实是 -> ${CMAKE_BUILD_TYPE}")
 find_package(OpenCV REQUIRED)
 find_package(yaml-cpp REQUIRED)
 add_subdirectory(src/lib_calib)

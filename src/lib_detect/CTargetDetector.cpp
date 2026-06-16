@@ -558,10 +558,10 @@ bool TargetDetector::detect_circles(cv::Mat& img, cv::Mat& img_output,vector<Sha
             Shape s2 = circles[j].first;
 
             float dist = sqrt(pow(s1.x - s2.x, 2) + pow(s1.y - s2.y, 2));
-            if (dist < distance_threshold)
+            if (dist < distance_threshold)///candidate is close to an existing circle
             {
                 isnew = false;
-
+                ///根据不确定度来判断取哪个
                 if(s1.uncertainty() < s2.uncertainty()){
                 // if(s1.m00 > s2.m00){
                     circles[j].first = s1;

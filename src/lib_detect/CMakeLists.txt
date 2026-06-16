@@ -7,6 +7,6 @@ find_package(OpenMP)
 
 add_library(targetDetector CTargetDetector.cpp CCircleGridFinder.cpp)
 if(OpenMP_CXX_FOUND)
-    target_link_libraries(targetDetector PUBLIC OpenMP::OpenMP_CXX)
+    target_link_libraries(targetDetector PUBLIC OpenMP::OpenMP_CXX ${OpenCV_LIBRARIES})
 endif()
 target_include_directories(targetDetector PUBLIC ${CMAKE_SOURCE_DIR}/include ${OpenCV_INCLUDE_DIRS} ${EIGEN3_INCLUDE_DIRS})

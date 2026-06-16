@@ -550,9 +550,10 @@ Params Calibrator::calibrate(int mode, bool save_jacob){
     if(mode==0){
         // initial_params.skew=0;
         printf(">>>Coarse results\n");
-        final_params= batch_optimize(sample, initial_params,2);
+        final_params= batch_optimize(sample, initial_params,2);//使用
         cout << final_params.to_table()<<endl;
-
+        double rperror = cal_reprojection_error(sample,final_params,2);
+        printf("Coarse Reprojection error: %f\n",rperror);
         printf(">>>Fine results (It may take few minites.....)\n");
         final_params= batch_optimize(sample, final_params,mode,save_jacob);
     }
@@ -564,7 +565,7 @@ Params Calibrator::calibrate(int mode, bool save_jacob){
     cout<<final_params.to_table(false, true) <<endl;
 
     double rperror = cal_reprojection_error(sample,final_params,mode);
-    printf("Reprojection error: %f\n",rperror);
+    printf("Fine Reprojection error: %f\n",rperror);
 
     
     if(writeFile.is_open()){
@@ -764,7 +765,7 @@ Eigen::VectorXd Calibrator::get_absolute_conic(){
         double h_ratio =result.second/h_mean;
         // std::cout<<"singular value ratio: "<<h_ratio<<std::endl;
         H*= h_ratio;
-        if (h_ratio>this->thr_homography){
+        if (h_ratio>this->thr_homography){//单应性矩阵筛选（工程工程优化）：代码中引入了一个 h_ratio（可能是某种单应性矩阵的奇异值比例或重投影误差得分）。只有当当前场景的单应性矩阵质量高于阈值 thr_homography 时，才会将其加入方程组。这能有效剔除模糊、大角度畸变或匹配点太少的坏图。
             Eigen::VectorXd v_01 = get_Vij(H,0,1);
             Eigen::VectorXd v_00 = get_Vij(H,0,0);
             Eigen::VectorXd v_11 = get_Vij(H,1,1);
@@ -788,7 +789,7 @@ bool Calibrator::cal_initial_params(Params* inital_params){
         return false;
     }
     else{
-        Eigen::VectorXd b = get_absolute_conic();
+        Eigen::VectorXd b = get_absolute_conic();///构建并求解超定线性方程组
         // cout<<b<<endl;
         // std::cout<<"absolute_conic:\n"<<b<<std::endl;
         double cx,cy,fx,fy,fx2,fy2,skew,lamda;
