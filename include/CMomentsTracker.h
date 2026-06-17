@@ -68,7 +68,9 @@ public:
     /// @param E 归一化平面单应映射矩阵
     /// @param mode 模式0 使用椭圆参数计算投影后中心，模式1 使用椭圆中心投影坐标 模式2 使用wx,wy投影坐标 模式3 使用数值解计算椭圆参数投影后中心
     /// @return 投影后图像坐标
-    Point project(double wx, double wy, double r,Params intrinsic, Eigen::Matrix3d E, int mode);
+
+     // 0: moments, 1: conic, 2: points, 3: ne2dp_Numerical, 4: wc2dp_Numerical
+    Point project(double wx, double wy, double r,Params intrinsic, Eigen::Matrix3d E, int mode, bool toImage = true);
     array<double, 5> ellipse2array(Eigen::Matrix3d Q);
     Point distort_Point(Point pn, vector<double> ds);
 };

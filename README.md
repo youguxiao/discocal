@@ -16,11 +16,17 @@ Discocal supports:
 - Thermal infrared camera calibration
 - Extrinsic calibration of N cameras
 - RGB-TIR extrinsic calibartion
-- (Comming soon) LiDAR-Camera extrinsic calibration
+- LiDAR-Camera extrinsic calibration
 
 ## News
 <!-- :round_pushpin: :Patch notes,    :tada:: awards -->
-- 25.05.30. :round_pushpin: **The uncertainty-aware version is released.** It is more accurate and robost.
+**(25.12.24) Stereo calibration update — significantly improved accuracy**
+
+Previously, the code did not incorporate measurement uncertainty during the stereo calibration process, and the relative camera pose was computed by simple averaging. We now integrate uncertainty into the extrinsic calibration and add an optimization step to further improve accuracy and robustness.
+
+- 25.12.24. :round_pushpin: Enhance the performance of stereo calibration.
+- 25.09.22. :round_pushpin: Now discocal supports asymmetyric grids.
+- 25.05.30. :round_pushpin: **The uncertainty-aware version is released.** It is more accurate and robust.
 - 24.07.19. :tada: This work is invited to [OpenCV Webinar](https://www.youtube.com/live/MTMMoN6ogcY?si=22DAdrzM3p9kDQK4)
 - 24.06.17. :round_pushpin:Add a description of how to undisort images using our method.
 - 24.04.17. :round_pushpin:We update circular pattern detector! Now, you don't need to tune hyperparameters for detections
@@ -55,8 +61,8 @@ Supports:
 * Ubuntu + x86_64 (amd64): 
 	[[Download_link]](https://www.dropbox.com/scl/fo/m7ugu49aboonfk1o55spk/ADgaLJ8n3V_oks52XEz2Sts?rlkey=noidt7em84dtzfbbxl0j28wxk&st=nzrwslgt&dl=0)
 
-* Ubuntu + Arm64: 
-	[[Download_link]](https://www.dropbox.com/scl/fo/j0s4rr1bkzul7r8bptks6/ADmWkbheq0jjjIbGLno8gw4?rlkey=xaflec5h9591i0dct8akb3p9z&st=qnqwcoul&dl=0)
+<!-- * Ubuntu + Arm64: 
+	[[Download_link]](https://www.dropbox.com/scl/fo/j0s4rr1bkzul7r8bptks6/ADmWkbheq0jjjIbGLno8gw4?rlkey=xaflec5h9591i0dct8akb3p9z&st=qnqwcoul&dl=0) -->
 
 **Option 2) Build with docker (Supports all architectures)**
 ```bash
@@ -64,10 +70,10 @@ git clone https://github.com/chaehyeonsong/discocal.git
 cd discocal
 docker compose up --build
 ```
-After build, runfiles will be created in discocal folder 
+After build, runfiles will be created in discocal folder. **You Don't have to additionally build or run docker container**
 
 ## 2. Run 
-Note: Revise the config file before run
+**Note: Revise the config file before run. (refer to [Docs](https://chaehyeonsong.github.io/discocal/))**
 * Intrinsic calibration
 	```bash
 	sudo chmod +x run_mono && ./run_mono [config_path]

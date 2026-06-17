@@ -29,6 +29,7 @@ class WrongTypeException: public std::exception{
 
 class TargetDetector{
     public:
+<<<<<<< HEAD
         /// @brief 检测圆
         /// @param n_x 宽度
         /// @param n_y 高度
@@ -43,6 +44,10 @@ class TargetDetector{
         /// @param img 
         /// @param detection_mode saturation时转到hsv 取s通道,
         /// @return
+=======
+        TargetDetector(int n_x, int n_y, bool _is_asymmetric, bool draw = true);
+        Target detect(cv::Mat& img, string type);
+>>>>>>> origin/main
         static cv::Mat preprocessing(cv::Mat img, string detection_mode);
         static cv::Mat translation_blur(const cv::Mat &img, double trans);
         static cv::Mat rotation_blur(const cv::Mat &img, double dtheta);
@@ -51,6 +56,7 @@ class TargetDetector{
     private:
         double numerical_stable;
         bool draw;
+        bool is_asymmetric;
         cv::Mat detection_result;
         int n_x, n_y;
         int size_threshold;

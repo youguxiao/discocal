@@ -1,9 +1,9 @@
 cameras:
   - img_dir: "./sample_imgs/rgb12/left/"
-    cal_intrinsic: false
     type: "circle"
     n_x: 4 
     n_y: 3
+    asymmetric: false
     radius: 0.03
     distance: 0.09
     detection_mode: ""
@@ -19,10 +19,10 @@ cameras:
     d4: 0
 
   - img_dir: "./sample_imgs/rgb12/right/"
-    cal_intrinsic: false
     type: "circle"
     n_x: 4 
     n_y: 3
+    asymmetric: false
     radius: 0.03
     distance: 0.09
     detection_mode: ""
@@ -38,5 +38,6 @@ cameras:
     d4: 0
 
 options:
-  save_results_path : "./"
+  results_path : "./extrinsic_result"
   visualize : true
+  full_optimize : false

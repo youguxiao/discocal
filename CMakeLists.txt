@@ -29,6 +29,7 @@ target_link_libraries(stereo.out
     ${OpenCV_LIBRARIES}
     targetDetector
     calibrator
+    stereoCalibrator
     yaml-cpp
 )
 set_property(TARGET stereo.out PROPERTY CXX_STANDARD 20)
@@ -39,5 +40,6 @@ target_link_libraries(pydiscocal PRIVATE
     ${OpenCV_LIBRARIES}
     targetDetector
     calibrator
+    stereoCalibrator
     yaml-cpp
 )

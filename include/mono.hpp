@@ -48,6 +48,8 @@ void MonoCalibration::mono_calibration(YAML::Node node){
     string type = camera_node["type"].as<string>();
     double r = camera_node["radius"].as<double>();
     double distance = camera_node["distance"].as<double>();
+    bool is_asymmetric= false;
+    if(camera_node["asymmetric"])is_asymmetric= camera_node["asymmetric"].as<bool>();
 
 
     YAML::Node option_node =node["options"];
@@ -84,10 +86,10 @@ void MonoCalibration::mono_calibration(YAML::Node node){
     string results_path = img_dir+"calibration_results/";
     mkdir(results_path);
 
-    TargetDetector detector(n_x, n_y,visualize);
-    pair<bool,vector<Shape>> result;
+    TargetDetector detector(n_x, n_y,is_asymmetric,visualize);
+    Target result;
     int count=0;
-    Calibrator calibrator = Calibrator(n_x,n_y,n_d,r,distance,max_scene,results_path);
+    Calibrator calibrator = Calibrator(n_x,n_y,is_asymmetric,n_d,r,distance,max_scene,results_path);
 
     // vector<int> success_img_list;
     vector<int> fail_img_list;
@@ -150,13 +152,13 @@ void MonoCalibration::mono_calibration(YAML::Node node){
             calibrator.update_Es(final_params,0);
         }
         else final_params=calibrator.calibrate(0,evaluation);
-        if(save_pose) calibrator.save_extrinsic(img_dir+"est_pose_c0.txt");
-        if(save_rpe) calibrator.visualize_rep(img_dir+"rpe_c0.txt",final_params,0);
+        if(save_pose) calibrator.save_extrinsic();
+        if(save_rpe) calibrator.visualize_rep(results_path+"rpe_c0.txt",final_params,0);
     }
     else{
         final_params=calibrator.calibrate(2,evaluation);
-        if(save_pose) calibrator.save_extrinsic(img_dir+"est_pose_s.txt");
-        if(save_rpe) calibrator.visualize_rep(img_dir+"rpe_s.txt",final_params,2);
+        if(save_pose) calibrator.save_extrinsic(results_path+"est_pose_s.txt");
+        if(save_rpe) calibrator.visualize_rep(results_path+"rpe_s.txt",final_params,2);
     }
 
 }
